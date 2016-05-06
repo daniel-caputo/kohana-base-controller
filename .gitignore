@@ -1,0 +1,10 @@
+/**
+!/application/
+/application/**
+!/application/classes/
+/application/classes/**
+!/application/classes/Controller/
+!/application/classes/Controller/Base.php
+!/application/views/
+!/application/views/**
+!/.gitignore
