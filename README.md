@@ -1,5 +1,3 @@
-This controller is base on the [jamierumbelow](hhttps://github.com/jamierumbelow/codeigniter-base-controller, "Title")'s controller
-
 ## Views and Layouts
 
 Views will be loaded automatically based on the current controller and action name. Any variables set in `$this->data` will be passed through to the view and the layout. By default, the class will look for the view in _application/views/controller/action.php_.
