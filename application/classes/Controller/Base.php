@@ -1,6 +1,8 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 
-class Controller_Base extends Kohana_Controller {
+abstract class Controller_Base extends Kohana_Controller {
+    
+    protected $data = array();
     
     protected $view = TRUE;
     
@@ -10,6 +12,11 @@ class Controller_Base extends Kohana_Controller {
 
     function after()
     {
+       
+        foreach($this->data as $key => $value)
+        {
+            View::set_global($key, $value);
+        }
         
         if($this->view !== FALSE)
         {
@@ -19,7 +26,9 @@ class Controller_Base extends Kohana_Controller {
 
             $path = strtolower($dir.'/'.$controller.'/'.$action);
 
-           if (!empty($this->asides)):
+           if (!empty($this->asides))
+           {
+           
             
                 foreach ($this->asides as $name => $file)
                 {
@@ -27,7 +36,7 @@ class Controller_Base extends Kohana_Controller {
                     $file = View::factory($file)->render();
                     View::bind_global($name, $file);
                 }
-            endif; 
+           }
             
            $yield = null;
 
@@ -42,20 +51,22 @@ class Controller_Base extends Kohana_Controller {
                    die("View file {$path} doesn't exist.");
                 }                
             }
-
+            
+            if( Kohana::find_file("views", "layouts/".$controller) )
+            {
+                $yield = View::factory("layouts/".$controller)->bind('yield', $yield)->render();
+            }
+            
             if ( Kohana::find_file("views", "layouts/".$dir) )
             {
                 $yield = View::factory("layouts/".$dir)->bind('yield', $yield)->render();
-            }
-            elseif( Kohana::find_file("views", "layouts/".$controller) )
-            {
-                $yield = View::factory("layouts/".$controller)->bind('yield', $yield)->render();
             }
 
             if( Kohana::find_file("views", "index") )
             {
                 $yield = View::factory("index")->bind('yield', $yield)->render();
             }
+            
             
             $this->response->body($yield);    
         }
