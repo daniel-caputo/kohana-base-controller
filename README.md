@@ -1,5 +1,4 @@
-This controller is base on the [jamierumbelow](hhttps://github.com/jamierumbelow/codeigniter-base-controller)'s controller
-This is [an example](http://example.com/ "Title") inline link.
+This controller is base on the [jamierumbelow](hhttps://github.com/jamierumbelow/codeigniter-base-controller, "Title")'s controller
 
 ## Views and Layouts
 
